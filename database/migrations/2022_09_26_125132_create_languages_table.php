@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('languages', function (Blueprint $table) {
             $table->id();
             $table->string('locale');
-            $table->string('prefix');
+            $table->char('prefix', 10)->index()->unique();
         });
     }
 
