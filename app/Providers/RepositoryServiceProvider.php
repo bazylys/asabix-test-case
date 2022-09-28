@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Contracts\Repository\TagsRepositoryInterface;
-use App\Repositories\Eloquent\TagsRepository;
+use App\Contracts\Repository\TagRepositoryInterface;
+use App\Repositories\Eloquent\TagRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -15,7 +15,7 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(TagsRepositoryInterface::class, TagsRepository::class);
+        $this->app->bind(TagRepositoryInterface::class, TagRepository::class);
     }
 
     /**

@@ -10,4 +10,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Tag extends Model
 {
     use HasFactory, SoftDeletes, StaticModelHelper;
+
+    protected $fillable = ['name'];
+
+    protected $visible = ['name'];
 }

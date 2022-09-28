@@ -1,12 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\V1;
 
+use App\Contracts\Repository\TagRepositoryInterface;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TagStoreRequest;
+use App\Http\Resources\TagResource;
+use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class TagController extends Controller
 {
+    protected TagRepositoryInterface $tagsRepository;
+
+    public function __construct(TagRepositoryInterface $tagsRepository)
+    {
+        $this->tagsRepository = $tagsRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,39 +26,26 @@ class TagController extends Controller
      */
     public function index()
     {
-        //
+        return Tag::query()->simplePaginate();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  TagStoreRequest  $request
+     * @return TagResource
      */
-    public function store(Request $request)
+    public function store(TagStoreRequest $request)
     {
-        //
+        $usedFields = $request->only('name');
+        $tag = $this->tagsRepository->createTag($usedFields);
+        return new TagResource($tag);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+
     }
 
     /**
